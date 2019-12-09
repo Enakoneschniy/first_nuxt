@@ -2,12 +2,12 @@
   <header>
     <ul>
       <li>
-        <nuxt-link :to="{ name: 'home', params: { lang: 'en' } }" exec>
+        <nuxt-link :to="{ name: 'home', params: { lang: 'en' } }" exact>
           Home
         </nuxt-link>
       </li>
       <li>
-        <nuxt-link :to="{ name: 'users', params: { lang: 'en' } }" exec>
+        <nuxt-link :to="{ name: 'users', params: { lang: 'en' } }" exact>
           Users
         </nuxt-link>
       </li>
