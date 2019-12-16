@@ -1,40 +1,14 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Vasya Pupkin",
-      "username": "vasya",
-      "email": "vasya@gmail.com",
-      "phone": "+380685839243",
-      "website": "https://google.com"
+      "name": "Eugene",
+      "username": "fdsdfsds",
+      "email": "e.nakoneschniy@gmail.com",
+      "phone": "345345534",
+      "website": "sdfsdfsdf",
+      "id": 2
     }
   ],
-  "posts": [
-    {
-      "userId": 1,
-      "id": 1,
-      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-    },
-    {
-      "userId": 1,
-      "id": 2,
-      "title": "qui est esse",
-      "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-    },
-    {
-      "userId": 1,
-      "id": 3,
-      "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-      "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "userId": 1,
-      "postId": 1,
-      "text": "uia et suscipit\nsuscipit"
-    }
-  ]
+  "posts": [],
+  "comments": []
 }

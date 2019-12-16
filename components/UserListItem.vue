@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'UserListItem',
   props: {
@@ -41,6 +42,9 @@ export default {
     this.localUser = { ...this.user }
   },
   methods: {
+    ...mapActions({
+      updateUser: 'users/updateUser'
+    }),
     onEdit () {
       this.isEdit = true
     },
@@ -48,8 +52,8 @@ export default {
       this.localUser = { ...this.user }
       this.isEdit = false
     },
-    onSave () {
-      this.$emit('update', this.localUser)
+    async onSave () {
+      await this.updateUser(this.localUser)
       this.isEdit = false
     }
   }

@@ -2,7 +2,7 @@
   <div>
     <h1>Users</h1>
     <ul>
-      <UserListItem @update="onUpdate" :user="user" v-for="user of users" :key="user.id" />
+      <UserListItem :user="user" v-for="user of users" :key="user.id" />
     </ul>
     <hr>
     <ul>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import UserListItem from '../components/UserListItem'
 export default {
   name: 'Users',
@@ -79,23 +80,23 @@ export default {
       website: ''
     }
   }),
-  async asyncData ({ $axios }) {
-    let users = []
-    try {
-      users = await $axios.$get('/users')
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e.response)
+  computed: mapGetters({
+    users: 'users/users'
+  }),
+  async fetch ({ store }) {
+    if (store.getters['user/usersCount'] < 0) {
+      await store.dispatch('users/loadUsers')
     }
-    return { users }
   },
   methods: {
+    ...mapActions({
+      addUser: 'users/addUser',
+      deleteUser: 'users/deleteUser'
+    }),
     async onDelete (id) {
       try {
         if (window.confirm('Delete this user?')) {
-          await this.$axios.$delete(`/users/${id}`)
-          const index = this.users.findIndex(user => user.id === id)
-          this.users.splice(index, 1)
+          await this.deleteUser(id)
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -105,8 +106,7 @@ export default {
     async onSubmit () {
       if (await this.$refs.newUserForm.validate()) {
         try {
-          const user = await this.$axios.$post('/users', this.newUser)
-          this.users.push(user)
+          await this.addUser(this.newUser)
         } catch (e) {
           // eslint-disable-next-line no-console
           console.log(e)
@@ -115,10 +115,6 @@ export default {
           })
         }
       }
-    },
-    onUpdate (user) {
-      const userIndex = this.users.findIndex(item => item.id === user.id)
-      this.users.splice(userIndex, 1, user)
     }
   }
 }
