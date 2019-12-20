@@ -15,6 +15,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  router: {
+    middleware: ['i18n']
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -23,11 +26,13 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/i18n.js', ssr: true },
     { src: '~/plugins/toast.js', ssr: true },
     { src: '~/plugins/validate.js', ssr: true }
   ],
@@ -44,7 +49,8 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/font-awesome'
   ],
   /*
   ** Axios module configuration

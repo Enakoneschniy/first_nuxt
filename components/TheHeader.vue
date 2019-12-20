@@ -1,26 +1,29 @@
 <template>
-  <header>
-    <ul>
-      <li>
-        <nuxt-link :to="{ name: 'home', params: { lang: 'en' } }" exact>
-          Home
+  <header class="header">
+    <ul class="menu-list">
+      <li class="menu-list-item">
+        <nuxt-link :to="{ name: 'home', params }" exact>
+          <i class="fa fa-home" aria-hidden="true"></i>
+          {{ $t('navigation.home') }}
         </nuxt-link>
       </li>
-      <li>
-        <nuxt-link :to="{ name: 'users', params: { lang: 'en' } }" exact>
-          Users
+      <li class="menu-list-item">
+        <nuxt-link :to="{ name: 'users', params }" exact>
+          <i class="fa fa-user"></i>
+          {{ $t('navigation.users') }}
         </nuxt-link>
       </li>
     </ul>
-    <input v-model="query" type="text" placeholder="Search">
-    <input v-model="user.name" type="text" placeholder="Name">
-    <input v-model="user.age" type="text" placeholder="Age">
+    <LocaleChanger />
   </header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import LocaleChanger from './LocaleChanger'
 export default {
   name: 'TheHeader',
+  components: { LocaleChanger },
   data () {
     return {
       query: '',
@@ -28,6 +31,17 @@ export default {
         name: 'Petya',
         age: 34
       }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      lang: 'localization/locale'
+    }),
+    params () {
+      if (this.$i18n.locale === this.$i18n.fallbackLocale) {
+        return {}
+      }
+      return { lang: this.lang }
     }
   },
   watch: {
@@ -52,6 +66,55 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../assets/variables";
+.header {
+  height: 50px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e4e4e4e4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  .menu-list {
+    list-style: none;
+    display: flex;
+    &-item {
+      padding: 5px;
+      a {
+        text-decoration: none;
+        color: $link-color;
+        position: relative;
+
+        &:hover {
+          color: darken($link-color, 50)
+        }
+        &.router-link-active {
+          &:after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            border-bottom: 2px solid $link-color;
+            left: 0;
+            bottom: -5px;
+          }
+          &:before {
+            position: absolute;
+            z-index: 2;
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: $link-color;
+            bottom: -6px;
+            left: calc(50% - 2.5px);
+            transform: rotate(45deg);
+          }
+        }
+      }
+    }
+  }
+}
 
 </style>
